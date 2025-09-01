@@ -128,27 +128,21 @@
   const video2 = document.getElementById("bgVideo2");
 
   if (video1 && video2) {
-    // thêm thuộc tính để Chrome mobile cho phép autoplay
-    [video1, video2].forEach(v => {
-      v.setAttribute("autoplay", "");
-      v.setAttribute("muted", "");
-      v.setAttribute("playsinline", "");
-      v.setAttribute("loop", "");
-    });
-
     // chọn source theo thiết bị
     video1.src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
     video2.src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
-
-    // fallback: nếu sau 3s video không play được thì hiện ảnh nền
-    setTimeout(() => {
-      if (video1.paused) {
-        video1.style.display = "none";
-        video2.style.display = "none";
-        document.body.style.background = "url('_static/avatar/Avatar-ttt.png') center/cover no-repeat";
-      }
-    }, 3000);
   }
+
+  // Fallback: nếu video bị chặn autoplay hoặc load chậm thì hiện ảnh nền
+  setTimeout(() => {
+    if (video1 && video1.paused) {
+      video1.style.display = "none";
+      if (video2) video2.style.display = "none";
+
+      document.body.style.background =
+        "url('_static/avatar/Avatar-ttt.png') center/cover no-repeat";
+    }
+  }, 3000);
 
   // Loader
   document.body.classList.add("loading");
@@ -169,6 +163,7 @@
     clearTimeout(fallback);
     hideLoader();
   });
+
   document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       clearTimeout(fallback);
