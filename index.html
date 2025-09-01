@@ -133,6 +133,26 @@
     }, 300); // Delay nhỏ cho mượt
   });
 </script>
+<script>
+  // Hàm kiểm tra & lazy-load iframe khi cuộn đến
+  function lazyLoadIframe() {
+    const sections = document.querySelectorAll(".section");
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const iframe = section.querySelector("iframe[data-src]");
+      if (iframe && !iframe.src && rect.top < window.innerHeight && rect.bottom > 0) {
+        iframe.src = iframe.dataset.src;
+      }
+    });
+  }
+
+  // Chạy 1 lần khi load xong
+  window.addEventListener("load", lazyLoadIframe);
+
+  // Và chạy lại khi scroll hoặc resize
+  window.addEventListener("scroll", lazyLoadIframe);
+  window.addEventListener("resize", lazyLoadIframe);
+</script>
 
 </body>
 </html>
