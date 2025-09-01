@@ -64,6 +64,33 @@
       text-align: center;
     }
   </style>
+
+<style>
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.bg-fallback {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.bg-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  display: none;
+}
+</style>
+
 </head>
 
 <body>
@@ -84,7 +111,12 @@
 <div class="horizontal-container" id="hContainer">
   <div class="vertical-wrapper" id="vLeft">
     <div class="section effect1" onclick="goToBio(1)">
-      <video autoplay muted loop playsinline class="bg-video" id="bgVideo1"></video>
+      
+<div class="video-wrapper">
+  <img src="_static/avatar/Avatar-ttt.png" alt="background" class="bg-fallback">
+  <video id="bgVideo1" class="bg-video" muted playsinline autoplay loop></video>
+</div>
+
       <img src="_static/avatar/Avatar-ttcn.png" class="avatar">
       <div class="name">Thông Tin Cá Nhân</div>
       <div class="quote" id="quote1">"Câu nói hay đầu tiên..."</div>
@@ -102,7 +134,12 @@
 
   <div class="vertical-wrapper" id="vRight">
     <div class="section effect2" onclick="goToBio(2)">
-      <video autoplay muted loop playsinline class="bg-video" id="bgVideo2"></video>
+      
+<div class="video-wrapper">
+  <img src="_static/avatar/Avatar-ttt.png" alt="background" class="bg-fallback">
+  <video id="bgVideo2" class="bg-video" muted playsinline autoplay loop></video>
+</div>
+
       <img src="_static/avatar/Avatar-tttt.png" class="avatar">
       <div class="name">Thông Tin Thanh Toán</div>
       <div class="quote" id="quote2">"Câu nói hay thứ hai..."</div>
@@ -114,85 +151,67 @@
     </div>
     <div class="section bio2">
       <div class="home-header" onclick="goToEffectFromBio(2)">Nguyễn Duy Hưng</div>
-     <iframe src="thongtinthanhtoan.html"></iframe>
+      <iframe data-src="thongtinthanhtoan.html"></iframe>
     </div>
   </div>
 </div>
 
-<script src="_static/js/loading.js"></script>
-<script>
-  // Gán video phù hợp thiết bị
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
+<script>
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   const video1 = document.getElementById("bgVideo1");
   const video2 = document.getElementById("bgVideo2");
 
   if (video1 && video2) {
-    // chọn source theo thiết bị
     video1.src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
     video2.src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
+
+    const showVideo = (video) => {
+      video.style.display = "block";
+      const fallbackImg = video.parentElement.querySelector(".bg-fallback");
+      if (fallbackImg) fallbackImg.style.display = "none";
+    };
+
+    video1.addEventListener("canplaythrough", () => showVideo(video1));
+    video2.addEventListener("canplaythrough", () => showVideo(video2));
+
+    setTimeout(() => {
+      if (video1.paused) {
+        video1.remove();
+        if (video2) video2.remove();
+      }
+    }, 5000);
   }
-
-  // Fallback: nếu video bị chặn autoplay hoặc load chậm thì hiện ảnh nền
-  setTimeout(() => {
-    if (video1 && video1.paused) {
-      video1.style.display = "none";
-      if (video2) video2.style.display = "none";
-
-      document.body.style.background =
-        "url('_static/avatar/Avatar-ttt.png') center/cover no-repeat";
-    }
-  }, 3000);
 
   // Loader
   document.body.classList.add("loading");
-
   function hideLoader() {
     document.body.classList.remove("loading");
     const loader = document.getElementById("loadingScreen");
     if (!loader) return;
     loader.classList.add("fade-out");
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 500);
+    setTimeout(() => { loader.style.display = "none"; }, 500);
   }
-
-  const fallback = setTimeout(hideLoader, 6000);
-
-  window.addEventListener("load", () => {
-    clearTimeout(fallback);
-    hideLoader();
-  });
-
+  const loaderFallback = setTimeout(hideLoader, 6000);
+  window.addEventListener("load", () => { clearTimeout(loaderFallback); hideLoader(); });
   document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-      clearTimeout(fallback);
-      hideLoader();
-    }, 2000);
+    setTimeout(() => { clearTimeout(loaderFallback); hideLoader(); }, 2000);
   });
-</script>
 
-
-<script>
-  // Hàm kiểm tra & lazy-load iframe khi cuộn đến
+  // Lazy-load iframe
   function lazyLoadIframe() {
-    const sections = document.querySelectorAll(".section");
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      const iframe = section.querySelector("iframe[data-src]");
-      if (iframe && !iframe.src && rect.top < window.innerHeight && rect.bottom > 0) {
+    document.querySelectorAll("iframe[data-src]").forEach(iframe => {
+      const rect = iframe.getBoundingClientRect();
+      if (!iframe.src && rect.top < window.innerHeight && rect.bottom > 0) {
         iframe.src = iframe.dataset.src;
       }
     });
   }
-
-  // Chạy 1 lần khi load xong
   window.addEventListener("load", lazyLoadIframe);
-
-  // Và chạy lại khi scroll hoặc resize
   window.addEventListener("scroll", lazyLoadIframe);
   window.addEventListener("resize", lazyLoadIframe);
 </script>
+
 
 </body>
 </html>
