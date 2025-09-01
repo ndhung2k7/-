@@ -10,6 +10,9 @@ html, body {
   font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
 }
+body.loading .horizontal-container {
+  pointer-events: none;
+}
 
 .horizontal-container {
   display: flex;
