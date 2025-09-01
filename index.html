@@ -125,6 +125,8 @@
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   document.getElementById("bgVideo1").src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
   document.getElementById("bgVideo2").src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
+<video id="bgVideo1" autoplay muted playsinline loop></video>
+<video id="bgVideo2" autoplay muted playsinline loop></video>
 
   // Loader
   document.body.classList.add("loading");
