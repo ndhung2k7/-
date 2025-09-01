@@ -123,10 +123,32 @@
 <script>
   // Gán video phù hợp thiết bị
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  document.getElementById("bgVideo1").src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
-  document.getElementById("bgVideo2").src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
-<video id="bgVideo1" autoplay muted playsinline loop></video>
-<video id="bgVideo2" autoplay muted playsinline loop></video>
+
+  const video1 = document.getElementById("bgVideo1");
+  const video2 = document.getElementById("bgVideo2");
+
+  if (video1 && video2) {
+    // thêm thuộc tính để Chrome mobile cho phép autoplay
+    [video1, video2].forEach(v => {
+      v.setAttribute("autoplay", "");
+      v.setAttribute("muted", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("loop", "");
+    });
+
+    // chọn source theo thiết bị
+    video1.src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
+    video2.src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
+
+    // fallback: nếu sau 3s video không play được thì hiện ảnh nền
+    setTimeout(() => {
+      if (video1.paused) {
+        video1.style.display = "none";
+        video2.style.display = "none";
+        document.body.style.background = "url('_static/avatar/Avatar-ttt.png') center/cover no-repeat";
+      }
+    }, 3000);
+  }
 
   // Loader
   document.body.classList.add("loading");
@@ -147,7 +169,14 @@
     clearTimeout(fallback);
     hideLoader();
   });
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      clearTimeout(fallback);
+      hideLoader();
+    }, 2000);
+  });
 </script>
+
 
 <script>
   // Hàm kiểm tra & lazy-load iframe khi cuộn đến
