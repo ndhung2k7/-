@@ -84,7 +84,7 @@
 <div class="horizontal-container" id="hContainer">
   <div class="vertical-wrapper" id="vLeft">
     <div class="section effect1" onclick="goToBio(1)">
-      <video autoplay muted loop playsinline class="bg-video" id="bgVideo1"></video>
+      <video autoplay muted loop playsinline class="bg-video" id="bgVideo1" poster="_static/avatar/mobile1.png"></video>
       <img src="_static/avatar/Avatar-ttcn.png" class="avatar">
       <div class="name">Thông Tin Cá Nhân</div>
       <div class="quote" id="quote1">"Câu nói hay đầu tiên..."</div>
@@ -102,7 +102,7 @@
 
   <div class="vertical-wrapper" id="vRight">
     <div class="section effect2" onclick="goToBio(2)">
-      <video autoplay muted loop playsinline class="bg-video" id="bgVideo2"></video>
+      <video autoplay muted loop playsinline class="bg-video" id="bgVideo2" poster="_static/avatar/mobile2.png"></video>
       <img src="_static/avatar/Avatar-tttt.png" class="avatar">
       <div class="name">Thông Tin Thanh Toán</div>
       <div class="quote" id="quote2">"Câu nói hay thứ hai..."</div>
@@ -119,20 +119,26 @@
   </div>
 </div>
 
-<script src="_static/js/loading.js"></script>
+
 <script>
-  // Gán video phù hợp thiết bị
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  document.getElementById('bgVideo1').src = isMobile ? "_static/avatar/mobile1.png" : "_static/avatar/pc1.mp4";
-  document.getElementById('bgVideo2').src = isMobile ? "_static/avatar/mobile2.png" : "_static/avatar/pc2.mp4";
+
+  if (!isMobile) {
+    const v1 = document.getElementById('bgVideo1');
+    const v2 = document.getElementById('bgVideo2');
+    if (v1) v1.src = "_static/avatar/pc1.mp4";
+    if (v2) v2.src = "_static/avatar/pc2.mp4";
+  }
 
   // Ẩn loading sau khi toàn bộ nội dung tải xong
   window.addEventListener('load', () => {
     setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-    }, 300); // Delay nhỏ cho mượt
+      const loader = document.getElementById('loadingScreen');
+      if (loader) loader.classList.add('hidden');
+    }, 300);
   });
 </script>
+
 
 </body>
 </html>
