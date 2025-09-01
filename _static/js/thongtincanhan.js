@@ -25,13 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
         "_static/emoji/24-7.gif",
         "_static/emoji/butterfly.gif",
         "_static/emoji/devil.gif",
-        "_static/emoji/flashing dragon.gif",
-        "_static/emoji/golden dragon.gif",
-        "_static/emoji/green tick.gif",
+        "_static/emoji/flashing-dragon.gif",
+        "_static/emoji/golden-dragon.gif",
+        "_static/emoji/green-tick.gif",
         "_static/emoji/heart.gif",
         "_static/emoji/online.gif",
         "_static/emoji/open.gif",
-        "_static/emoji/tick 7 colors.gif",
+        "_static/emoji/tick7colors.gif",
         "_static/emoji/VN.gif"
     ];
 
