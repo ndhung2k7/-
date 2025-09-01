@@ -64,33 +64,6 @@
       text-align: center;
     }
   </style>
-
-<style>
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-.bg-fallback {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-.bg-video {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-  display: none;
-}
-</style>
-
 </head>
 
 <body>
@@ -111,12 +84,7 @@
 <div class="horizontal-container" id="hContainer">
   <div class="vertical-wrapper" id="vLeft">
     <div class="section effect1" onclick="goToBio(1)">
-      
-<div class="video-wrapper">
-  <img src="_static/avatar/Avatar-ttt.png" alt="background" class="bg-fallback">
-  <video id="bgVideo1" class="bg-video" muted playsinline autoplay loop></video>
-</div>
-
+      <video autoplay muted loop playsinline class="bg-video" id="bgVideo1"></video>
       <img src="_static/avatar/Avatar-ttcn.png" class="avatar">
       <div class="name">Thông Tin Cá Nhân</div>
       <div class="quote" id="quote1">"Câu nói hay đầu tiên..."</div>
@@ -134,12 +102,7 @@
 
   <div class="vertical-wrapper" id="vRight">
     <div class="section effect2" onclick="goToBio(2)">
-      
-<div class="video-wrapper">
-  <img src="_static/avatar/Avatar-ttt.png" alt="background" class="bg-fallback">
-  <video id="bgVideo2" class="bg-video" muted playsinline autoplay loop></video>
-</div>
-
+      <video autoplay muted loop playsinline class="bg-video" id="bgVideo2"></video>
       <img src="_static/avatar/Avatar-tttt.png" class="avatar">
       <div class="name">Thông Tin Thanh Toán</div>
       <div class="quote" id="quote2">"Câu nói hay thứ hai..."</div>
@@ -151,67 +114,25 @@
     </div>
     <div class="section bio2">
       <div class="home-header" onclick="goToEffectFromBio(2)">Nguyễn Duy Hưng</div>
-      <iframe data-src="thongtinthanhtoan.html"></iframe>
+      <iframe src="thongtinthanhtoan.html"></iframe>
     </div>
   </div>
 </div>
 
-
+<script src="_static/js/loading.js"></script>
 <script>
+  // Gán video phù hợp thiết bị
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  const video1 = document.getElementById("bgVideo1");
-  const video2 = document.getElementById("bgVideo2");
+  document.getElementById('bgVideo1').src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
+  document.getElementById('bgVideo2').src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
 
-  if (video1 && video2) {
-    video1.src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
-    video2.src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
-
-    const showVideo = (video) => {
-      video.style.display = "block";
-      const fallbackImg = video.parentElement.querySelector(".bg-fallback");
-      if (fallbackImg) fallbackImg.style.display = "none";
-    };
-
-    video1.addEventListener("canplaythrough", () => showVideo(video1));
-    video2.addEventListener("canplaythrough", () => showVideo(video2));
-
+  // Ẩn loading sau khi toàn bộ nội dung tải xong
+  window.addEventListener('load', () => {
     setTimeout(() => {
-      if (video1.paused) {
-        video1.remove();
-        if (video2) video2.remove();
-      }
-    }, 5000);
-  }
-
-  // Loader
-  document.body.classList.add("loading");
-  function hideLoader() {
-    document.body.classList.remove("loading");
-    const loader = document.getElementById("loadingScreen");
-    if (!loader) return;
-    loader.classList.add("fade-out");
-    setTimeout(() => { loader.style.display = "none"; }, 500);
-  }
-  const loaderFallback = setTimeout(hideLoader, 6000);
-  window.addEventListener("load", () => { clearTimeout(loaderFallback); hideLoader(); });
-  document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => { clearTimeout(loaderFallback); hideLoader(); }, 2000);
+      document.getElementById('loadingScreen').classList.add('hidden');
+    }, 300); // Delay nhỏ cho mượt
   });
-
-  // Lazy-load iframe
-  function lazyLoadIframe() {
-    document.querySelectorAll("iframe[data-src]").forEach(iframe => {
-      const rect = iframe.getBoundingClientRect();
-      if (!iframe.src && rect.top < window.innerHeight && rect.bottom > 0) {
-        iframe.src = iframe.dataset.src;
-      }
-    });
-  }
-  window.addEventListener("load", lazyLoadIframe);
-  window.addEventListener("scroll", lazyLoadIframe);
-  window.addEventListener("resize", lazyLoadIframe);
 </script>
-
 
 </body>
 </html>
