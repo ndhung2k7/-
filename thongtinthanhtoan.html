@@ -136,7 +136,12 @@ function stk() {
       backgroundColor: "green"
     }).showToast();
 }
-function __nguyenduyhungDev() {nguyenduyhungnoti();}
+function __nguyenduyhungDev() {
+  // chỉ hiện popup nếu không nằm trong iframe
+  if (window.self === window.top) {
+    nguyenduyhungnoti();
+  }
+}
 function nguyenduyhungnoti() {
   swal({
     content: {
