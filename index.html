@@ -123,16 +123,30 @@
 <script>
   // Gán video phù hợp thiết bị
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  document.getElementById('bgVideo1').src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
-  document.getElementById('bgVideo2').src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
+  document.getElementById("bgVideo1").src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
+  document.getElementById("bgVideo2").src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
 
-  // Ẩn loading sau khi toàn bộ nội dung tải xong
-  window.addEventListener('load', () => {
+  // Loader
+  document.body.classList.add("loading");
+
+  function hideLoader() {
+    document.body.classList.remove("loading");
+    const loader = document.getElementById("loadingScreen");
+    if (!loader) return;
+    loader.classList.add("fade-out");
     setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-    }, 300); // Delay nhỏ cho mượt
+      loader.style.display = "none";
+    }, 500);
+  }
+
+  const fallback = setTimeout(hideLoader, 6000);
+
+  window.addEventListener("load", () => {
+    clearTimeout(fallback);
+    hideLoader();
   });
 </script>
+
 <script>
   // Hàm kiểm tra & lazy-load iframe khi cuộn đến
   function lazyLoadIframe() {
