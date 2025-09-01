@@ -168,11 +168,11 @@
 
   // ================== JS CHÍNH ==================
   const songs = [
-    { name: "Bài hát 1", file: "https://files.catbox.moe/22en11.mp3" },
-    { name: "Bài hát 2", file: "song2.mp3" },
-    { name: "Bài hát 3", file: "song3.mp3" },
-    { name: "Bài hát 4", file: "song4.mp3" },
-    { name: "Bài hát 5", file: "song5.mp3" }
+    { name: "Em Lãng Quên Tình Tôi, Thì Thôi (Orinn Remix)", file: "https://files.catbox.moe/22en11.mp3" },
+    { name: "Chẳng Ai Yêu Mãi Một Người (Orinn Remix) ", file: "https://files.catbox.moe/223k6f.mp3" },
+    { name: "Đau Ở Đây Này (Orinn Remix)", file: "https://files.catbox.moe/223k6f.mp3" },
+    { name: "Em Lãng Quên Tình Tôi, Thì Thôi (Orinn Remix) ", file: "https://files.catbox.moe/cwsft5.mp3" },
+    { name: "Em Lãng Quên Tình Tôi, Thì Thôi (Orinn Remix)", file: "https://files.catbox.moe/niqmjg.mp3" }
   ];
 
   let currentAudio = null;
