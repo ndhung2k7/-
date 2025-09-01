@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>ThanhDieu Home</title>
+  <title>Nguyễn Duy Hưng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="_static/css/loading.css">
 
@@ -95,7 +95,7 @@
       </div>
     </div>
     <div class="section bio1">
-      <div class="home-header" onclick="goToEffectFromBio(1)">ThanhDieu Home</div>
+      <div class="home-header" onclick="goToEffectFromBio(1)">Nguyễn Duy Hưng</div>
       <iframe src="thongtincanhan.html"></iframe>
     </div>
   </div>
@@ -113,7 +113,7 @@
       </div>
     </div>
     <div class="section bio2">
-      <div class="home-header" onclick="goToEffectFromBio(2)">ThanhDieu Home</div>
+      <div class="home-header" onclick="goToEffectFromBio(2)">Nguyễn Duy Hưng</div>
       <iframe src="thongtinthanhtoan.html"></iframe>
     </div>
   </div>
@@ -123,8 +123,8 @@
 <script>
   // Gán video phù hợp thiết bị
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  document.getElementById('bgVideo1').src = isMobile ? "mobile1.mp4" : "pc1.mp4";
-  document.getElementById('bgVideo2').src = isMobile ? "mobile2.mp4" : "pc2.mp4";
+  document.getElementById('bgVideo1').src = isMobile ? "_static/avatar/mobile1.mp4" : "_static/avatar/pc1.mp4";
+  document.getElementById('bgVideo2').src = isMobile ? "_static/avatar/mobile2.mp4" : "_static/avatar/pc2.mp4";
 
   // Ẩn loading sau khi toàn bộ nội dung tải xong
   window.addEventListener('load', () => {
