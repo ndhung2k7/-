@@ -77,9 +77,33 @@
 }
 </style>
 
+
+<style>
+.video-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -9999;      /* luôn nằm dưới cùng */
+  pointer-events: none;/* không chặn click */
+  overflow: hidden;
+}
+.bg-fallback,
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
 </head>
 
 <body>
+<div class="video-wrapper">
+  <img src="_static/avatar/Avatar-ttt.png" alt="background" class="bg-fallback">
+  <video id="bgVideo1" class="bg-video" muted playsinline autoplay loop poster="_static/avatar/mobile1.png"></video>
+  <video id="bgVideo2" class="bg-video" muted playsinline autoplay loop poster="_static/avatar/mobile2.png"></video>
+</div>
 
 <!-- Loading screen -->
 <div id="loadingScreen">
