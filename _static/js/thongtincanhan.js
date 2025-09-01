@@ -22,17 +22,17 @@
         setInterval(changeQuote, 5000);
 document.addEventListener("DOMContentLoaded", function() {
     const icons = [
-        "emoji/24-7.gif",
-        "emoji/butterfly.gif",
-        "emoji/devil.gif",
-        "emoji/flashing dragon.gif",
-        "emoji/golden dragon.gif",
-        "emoji/green tick.gif",
-        "emoji/heart.gif",
-        "emoji/online.gif",
-        "emoji/open.gif",
-        "emoji/tick 7 colors.gif",
-        "emoji/VN.gif"
+        "_static/emoji/24-7.gif",
+        "_static/emoji/butterfly.gif",
+        "_static/emoji/devil.gif",
+        "_static/emoji/flashing dragon.gif",
+        "_static/emoji/golden dragon.gif",
+        "_static/emoji/green tick.gif",
+        "_static/emoji/heart.gif",
+        "_static/emoji/online.gif",
+        "_static/emoji/open.gif",
+        "_static/emoji/tick 7 colors.gif",
+        "_static/emoji/VN.gif"
     ];
 
     // chọn random
